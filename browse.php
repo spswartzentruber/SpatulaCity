@@ -1,17 +1,15 @@
 <!--Note: Currently, only the first page of search results displays correctly.  Subsequent pages will default back to not being 'filtered'.  This is because the links on the bottom are currently manually setting the address to page n with disregard to any filters that may be in place.  For what it's worth, this *should* change but is hardly a priority.-->
 
-<?php include 'header.php'; ?>
+<?php 
+	include 'header.php'; 
+	include 'php_scripts/db_connect.php';
+?>
 
 <body>
 
-<?php
-//	session_start();
-	include 'php_scripts/db_connect.php';
-	include 'nav_bar.php';
-//	print_r($_GET['filter']);
-?>
+<?php include 'nav_bar.php'; ?>
 
-<div class="ui-widget-content">
+<div id='content'>
 
 <form id='spatulaFilter' action="browse.php" method="get">
     <h3>Occasion</h3>

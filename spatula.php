@@ -33,6 +33,7 @@
 //	print_r($occasions);
 ?>
 
+<div id='content'>
 <div class="nailthumb-container" id='spatula_image'><img src="/spatulacity/img/<?php echo $spatula_array['image_url'] ?>.jpg" / class="spatula_thumbnail"></div>
 <h1 id='spatula_name'><?php echo $spatula_array['name'] ?></h1>
 <p id='spatula_description'><?php echo $spatula_array['description'] ?></p><br/>
@@ -45,7 +46,7 @@
 		}
 		?>
     </ul>
-</h2>
+</div>
 </body>
 
 <?php include 'footer.php'; ?> 

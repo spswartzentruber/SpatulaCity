@@ -1,16 +1,13 @@
-<?php include 'header.php'; ?>
+<?php 
+	include 'header.php'; 
+	include 'php_scripts/db_connect.php';
+?>
 
 <body>
-Here is the cart.
-
+<?php include 'nav_bar.php'; ?>
+	
+<div id='content'>	
 <?php
-//	session_start(); 
-	
-//	print_r($_SESSION['cart']);
-	
-	include 'php_scripts/db_connect.php';
-	include 'nav_bar.php';
-	
 	foreach($_SESSION['cart'] as $val){
 		$query = "SELECT sp_name, price_sale, id_spatula FROM full_spatula WHERE id_spatula=".$val['id_spatula'].";";
 		$result = $link->query($query);
@@ -34,6 +31,7 @@ Here is the cart.
 	echo "<li>Total: <span id='total'>".$total."</span></li>";
 	echo "</ul>";
 ?>
+</div>
 </body>
 
 <?php include 'footer.php'; ?>

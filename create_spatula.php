@@ -8,7 +8,7 @@ include 'header.php';
 <?php
 include 'nav_bar.php';
 ?>
-
+<div id='content'>
 <form action="php_scripts/form_handler.php" method="post" id="new_spatula_form">
 	<fieldset>
         <legend>New Spatula:</legend>
@@ -23,6 +23,7 @@ include 'nav_bar.php';
         <input type='submit' value='submit'>
 	</fieldset>
 </form>
+</div>
 </body>
 
 <?php include 'footer.php'; ?>
