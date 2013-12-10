@@ -6,7 +6,10 @@
 ?>
 
 <body>
-
+<div id="banner">
+	<?php include 'page_elements/login.php'; ?>
+</div>
+<div id="below_banner">
 <?php include 'page_elements/nav_bar.php'; ?>
 
 <div id='content'>
@@ -160,6 +163,7 @@
 	
 	echo "<div><a href='browse.php?$previous_page_url'><</a><a href='browse.php?$next_page_url'>></a></div>";	//This needs to be changed to keep the last search.
 	?>
+</div>
 </div>
 </body>
 

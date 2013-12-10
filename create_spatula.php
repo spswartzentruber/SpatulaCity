@@ -4,7 +4,10 @@ include 'page_elements/header.php';
 ?>
 
 <body>
-
+<div id="banner">
+	<?php include 'page_elements/login.php'; ?>
+</div>
+<div id="below_banner">
 <?php
 include 'page_elements/nav_bar.php';
 ?>
@@ -23,6 +26,7 @@ include 'page_elements/nav_bar.php';
         <input type='submit' value='submit'>
 	</fieldset>
 </form>
+</div>
 </div>
 </body>
 

@@ -31,7 +31,7 @@ if( !empty( $_POST['login'] ) )
 //Logout
 if( $_POST['logout'] == 1 )
 {
-	echo $_SESSION['username']." logged out.";
+//	echo $_SESSION['username']." logged out.";
 	unset($_SESSION['username']);
 }
 
@@ -39,18 +39,24 @@ if( $_POST['logout'] == 1 )
 if(empty($_SESSION['username']))
 {
 	echo "
-	<form action='php_scripts/login.php' method='post' id='login'>
-		<fieldset>
-			<legend>Login:</legend>
-			username: <input type='text' required name='login[username]'> password: <input type='password' required name='login[password]'><input type='submit' value='login' class='loginout_button'>
-		</fieldset>
-	</form>
+	<div id='login_div'>
+		<form action='page_elements/login.php' method='post' id='login'>
+			<fieldset>
+				<legend>Login:</legend>
+				username: <input type='text' required name='login[username]'> password: <input type='password' required name='login[password]'><input type='submit' value='login' class='loginout_button'>
+			</fieldset>
+		</form>
+	</div>
 	";
 } else {
 	echo
 	"
-	<p>Welcome, ".$_SESSION['username']."!</p>
-	<button id='logout'>logout</button>
+	<div id='login_div'>
+		<p>Welcome, ".$_SESSION['username']."!</p>
+		<form action='page_elements/login.php' method='post' id='logout'>
+			<input type='submit' value='logout' class='loginout_button'>
+		</form>
+	</div>
 	";
 }
 ?>

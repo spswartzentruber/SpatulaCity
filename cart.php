@@ -4,6 +4,10 @@
 ?>
 
 <body>
+<div id="banner">
+	<?php include 'page_elements/login.php'; ?>
+</div>
+<div id="below_banner">
 <?php include 'page_elements/nav_bar.php'; ?>
 	
 <div id='content'>	
@@ -31,6 +35,7 @@
 	echo "<li>Total: <span id='total'>".$total."</span></li>";
 	echo "</ul>";
 ?>
+</div>
 </div>
 </body>
 

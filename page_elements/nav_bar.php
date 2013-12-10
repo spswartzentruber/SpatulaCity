@@ -7,11 +7,11 @@
         <?php
 		if(isset($_SESSION['username']))
 		{
-			echo "<li><a href='/spatulacity/account.php'>Account</a></li>";
+			echo "<li><a href='account.php'>Account</a></li>";
 		}
 		?>
 		<li></li>
-    	<li class="single-menu-item"><a href="../create_spatula.php">Create Spatula</a></li>
+    	<li class="single-menu-item"><a href="create_spatula.php">Create Spatula</a></li>
     </div>
 </div>
 <script>

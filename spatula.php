@@ -1,7 +1,10 @@
 <?php include 'page_elements/header.php'; ?>
 
 <body>
-
+<div id="banner">
+	<?php include 'page_elements/login.php'; ?>
+</div>
+<div id="below_banner">
 <?php
 	session_start();
 	include 'php_scripts/db_connect.php';
@@ -46,6 +49,7 @@
 		}
 		?>
     </ul>
+</div>
 </div>
 </body>
 

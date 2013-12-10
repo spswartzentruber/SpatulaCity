@@ -11,19 +11,25 @@ $(document).ready(function(){
 		var posting = $.post( url , $form.serialize() );
 		
 		posting.done(function( data ) {
-			$( "#login_div" ).empty().append( content );
+			$( "#login_div" ).empty().append( data );
+//			alert(data);
 		});
 		
 //		location.reload();
 	});
 	
 	$('#logout').click(function( event ) {
+		event.preventDefault();
 //		alert('logout clicked');
-		$.post( 'login.php' , { logout : 1 } );
-//		location.reload();
+		
+		var $form = $( this ),
+		url = $form.attr( "action" );
+		
+		var posting = $.post( url , { logout : 1 } );
 
 		posting.done(function( data ) {
-			$( "#login_div" ).empty().append( content );
+			$( "#login_div" ).empty().append( data );
+//			alert(data);
 		});
 	});
 
