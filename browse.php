@@ -11,12 +11,11 @@
 
 <div id='content'>
     <div id ='filter_list'>
-        <ul>
-        	<li>
-                <form id='spatulaFilter' action="browse.php" method="get">
+		<form id='spatulaFilter' action="browse.php" method="get">
+			<ul>
+                <li>
                     <h3>Occasion</h3>
                     <div class="filter_checkboxes">
-                    
                         <?php
                         require 'php_scripts/db_connect.php';
                         
@@ -36,11 +35,35 @@
                         }
                         ?>
                     </div>
-                    <input type="hidden" name="page" value="<?php echo $_GET['page']; ?>"> <!--Pass the page element as well so we can keep track of where we are-->
-                    <input type="submit" value="Filter">
-                </form>
-            </li>
-        </ul>
+                </li>
+                <li>
+                    <h3>Color</h3>
+                    <div class="filter_checkboxes">
+                        <?php
+                        require 'php_scripts/db_connect.php';
+                        
+                        $query = 
+                        "SELECT sp_color as color
+                        FROM spatula
+						GROUP BY color 
+                        ORDER BY color DESC;";
+                        
+                        $results = $link->query($query);
+                        
+                        while($row = $results->fetch_assoc()){
+                            if(in_array($row['color'],$_GET['filter']['color'])){
+                                echo "<input type='checkbox' name='filter[color][]' value='".$row['color']."' checked>".$row['color'];
+                            } else {
+                                echo "<input type='checkbox' name='filter[color][]' value='".$row['color']."' >".$row['color'];
+                            }
+                        }
+                        ?>
+                    </div>
+                </li>
+            </ul>
+            <input type="hidden" name="page" value="<?php echo $_GET['page']; ?>"> <!--Pass the page element as well so we can keep track of where we are-->
+            <input type="submit" value="Filter">
+        </form>
     </div>
 	<?php	
 	require 'php_scripts/db_connect.php';
@@ -91,11 +114,12 @@
 			$filter_array = array
 				(
 				'occasion' => 'id_occassion'
+				,'color' => 'sp_color'
 				);
 			
 			$query .= " AND ( ";
 			foreach($foo as $bar){
-				$query .= " $filter_array[$category] = $bar OR ";
+				$query .= " $filter_array[$category] = '$bar' OR ";
 			}
 			
 			//query current has an " OR " tacked on the end.  This removes it.
@@ -142,7 +166,7 @@
 <?php include 'footer.php'; ?> 
 
 <script type="text/javascript">
-$(document).ready(function(){
+$(document).ready(function(){	
 	$('.cart_button').submit(function( event ) {
 //			alert('Add to Cart clicked');
 		 // Stop form from submitting normally
@@ -168,9 +192,9 @@ $(document).ready(function(){
 		});
 	});
 	
-	$('#filter_list li').click(function(){
+	$('#filter_list h3').click(function(){
 //		alert('list element clicked');
-		$(this).find('.filter_checkboxes').toggle("fast");
+		$(this).siblings('.filter_checkboxes').toggle("fast");
 	});
 });
 </script> 

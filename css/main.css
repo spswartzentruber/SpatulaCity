@@ -1,6 +1,16 @@
 /* CSS Document */
+.navigation 
+{
+	margin-top: 10px;
+}
 
 #navMenu
 {
 	float:left;
+}
+
+#content 
+{
+	float: left;
+	width:50%;
 }
