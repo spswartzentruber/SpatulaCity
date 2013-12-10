@@ -1,12 +1,12 @@
 <?php 
 session_start();
-include 'header.php'; 
+include 'page_elements/header.php'; 
 ?>
 
 <body>
 
 <?php
-include 'nav_bar.php';
+include 'page_elements/nav_bar.php';
 ?>
 <div id='content'>
 <form action="php_scripts/form_handler.php" method="post" id="new_spatula_form">
@@ -26,7 +26,7 @@ include 'nav_bar.php';
 </div>
 </body>
 
-<?php include 'footer.php'; ?>
+<?php include 'page_elements/footer.php'; ?>
 
 <script>
 $(document).ready(function(){

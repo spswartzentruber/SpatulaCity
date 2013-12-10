@@ -1,13 +1,13 @@
 <!--Note: Searching does not restart to page 1.-->
 
 <?php 
-	include 'header.php'; 
+	include 'page_elements/header.php'; 
 	include 'php_scripts/db_connect.php';
 ?>
 
 <body>
 
-<?php include 'nav_bar.php'; ?>
+<?php include 'page_elements/nav_bar.php'; ?>
 
 <div id='content'>
     <div id ='filter_list'>
@@ -163,10 +163,12 @@
 </div>
 </body>
 
-<?php include 'footer.php'; ?> 
+<?php include 'page_elements/footer.php'; ?> 
 
 <script type="text/javascript">
 $(document).ready(function(){	
+	$('.filter_checkboxes').hide();
+
 	$('.cart_button').submit(function( event ) {
 //			alert('Add to Cart clicked');
 		 // Stop form from submitting normally

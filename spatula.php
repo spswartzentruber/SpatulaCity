@@ -1,11 +1,11 @@
-<?php include 'header.php'; ?>
+<?php include 'page_elements/header.php'; ?>
 
 <body>
 
 <?php
 	session_start();
 	include 'php_scripts/db_connect.php';
-	include 'nav_bar.php';
+	include 'page_elements/nav_bar.php';
 	
 	$id_spatula = $_GET['id_spatula'];
 	
@@ -49,7 +49,7 @@
 </div>
 </body>
 
-<?php include 'footer.php'; ?> 
+<?php include 'page_elements/footer.php'; ?> 
 
  <script type="text/javascript">
 	jQuery(document).ready(function() {

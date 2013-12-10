@@ -1,10 +1,10 @@
 <?php 
-	include 'header.php'; 
+	include 'page_elements/header.php'; 
 	include 'php_scripts/db_connect.php';
 ?>
 
 <body>
-<?php include 'nav_bar.php'; ?>
+<?php include 'page_elements/nav_bar.php'; ?>
 	
 <div id='content'>	
 <?php
@@ -34,7 +34,7 @@
 </div>
 </body>
 
-<?php include 'footer.php'; ?>
+<?php include 'page_elements/footer.php'; ?>
     
 <script type="text/javascript">
 	$(document).ready(function(){

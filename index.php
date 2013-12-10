@@ -1,17 +1,23 @@
 <?php
-include 'header.php';
+include 'page_elements/header.php';
 //session_start();
 $_SESSION['cart'] = array();
 ?>
 
 <body>
-<?php include 'nav_bar.php'; ?>
-<div id='content'>
-<!--<iframe width="560" height="315" src="//www.youtube-nocookie.com/embed/0NCmDvrECS8?rel=0" frameborder="0" allowfullscreen></iframe>-->
-<iframe width="560" height="315" src="//www.youtube-nocookie.com/embed/4BUDwj_mXKE?rel=0" frameborder="0" allowfullscreen></iframe>
+<div id="banner">
+	<div id="login_div">
+		<?php include 'page_elements/login.php'; ?>
+    </div>
+</div>
+<div id="below_banner">
+	<?php include 'page_elements/nav_bar.php'; ?>
+    <div id='content'>
+    	<iframe width="560" height="315" src="//www.youtube-nocookie.com/embed/4BUDwj_mXKE?rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
 </div>
 </body>
 
 <?php
-include 'footer.php';
+include 'page_elements/footer.php';
 ?>
