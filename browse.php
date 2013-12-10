@@ -1,4 +1,4 @@
-<!--Note: Currently, only the first page of search results displays correctly.  Subsequent pages will default back to not being 'filtered'.  This is because the links on the bottom are currently manually setting the address to page n with disregard to any filters that may be in place.  For what it's worth, this *should* change but is hardly a priority.-->
+<!--Note: Searching does not restart to page 1.-->
 
 <?php 
 	include 'header.php'; 
@@ -10,35 +10,39 @@
 <?php include 'nav_bar.php'; ?>
 
 <div id='content'>
-
-<form id='spatulaFilter' action="browse.php" method="get">
-    <h3>Occasion</h3>
-    <div>
-    
-    	<?php
-		require 'php_scripts/db_connect.php';
-		
-		$query = 
-		"SELECT * 
-		FROM occassion 
-		ORDER BY 'name' DESC;";
-		
-		$results = $link->query($query);
-		
-		while($row = $results->fetch_assoc()){
-			if(in_array($row['id_occassion'],$_GET['filter']['occasion'])){
-				echo "<input type='checkbox' name='filter[occasion][]' value='".$row['id_occassion']."' checked>".$row['name'];
-			} else {
-				echo "<input type='checkbox' name='filter[occasion][]' value='".$row['id_occassion']."' >".$row['name'];
-			}
-		}
-		?>
+    <div id ='filter_list'>
+        <ul>
+        	<li>
+                <form id='spatulaFilter' action="browse.php" method="get">
+                    <h3>Occasion</h3>
+                    <div class="filter_checkboxes">
+                    
+                        <?php
+                        require 'php_scripts/db_connect.php';
+                        
+                        $query = 
+                        "SELECT * 
+                        FROM occassion 
+                        ORDER BY 'name' DESC;";
+                        
+                        $results = $link->query($query);
+                        
+                        while($row = $results->fetch_assoc()){
+                            if(in_array($row['id_occassion'],$_GET['filter']['occasion'])){
+                                echo "<input type='checkbox' name='filter[occasion][]' value='".$row['id_occassion']."' checked>".$row['name'];
+                            } else {
+                                echo "<input type='checkbox' name='filter[occasion][]' value='".$row['id_occassion']."' >".$row['name'];
+                            }
+                        }
+                        ?>
+                    </div>
+                    <input type="hidden" name="page" value="<?php echo $_GET['page']; ?>"> <!--Pass the page element as well so we can keep track of where we are-->
+                    <input type="submit" value="Filter">
+                </form>
+            </li>
+        </ul>
     </div>
-    <input type="hidden" name="page" value="<?php echo $_GET['page']; ?>"> <!--Pass the page element as well so we can keep track of where we are-->
-    <input type="submit" value="Filter">
-</form>
-
-<?php	
+	<?php	
 	require 'php_scripts/db_connect.php';
 	
 	function spatula_list($spatula_array, $page, $per_page)
@@ -122,38 +126,51 @@
 		
 	$page = $_GET['page'];
 	echo "<div>".spatula_list($spatula,$page,10)."</div><br />";
-	echo "<div><a href='browse.php?page=".($page-1)."'><</a><a href='browse.php?page=".($page+1)."'>></a></div>";	//This needs to be changed to keep the last search.
-?>
+	
+	$query_arr = $_GET;
+	$query_arr["page"] = $query_arr["page"] + 1;
+	$next_page_url = http_build_query($query_arr);
+	
+	$query_arr["page"] = min(array(1,$query_arr["page"] - 2));	//Go back 2 since we already added one for the next page.  Min of 1 so we don't go too low.
+	$previous_page_url = http_build_query($query_arr);
+	
+	echo "<div><a href='browse.php?$previous_page_url'><</a><a href='browse.php?$next_page_url'>></a></div>";	//This needs to be changed to keep the last search.
+	?>
 </div>
 </body>
 
 <?php include 'footer.php'; ?> 
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('.cart_button').submit(function( event ) {
+$(document).ready(function(){
+	$('.cart_button').submit(function( event ) {
 //			alert('Add to Cart clicked');
-			 // Stop form from submitting normally
-			event.preventDefault();
-			
-			// Get some values from elements on the page:
-			var $form = $( this ),
-			url = $form.attr( "action" );
-			
-			// Send the data using post
-			var posting = $.post( url , $form.serialize());
-			
-			//Grey out button to disallow same item being added to cart
-			$(this).addClass('disabled');
-			
+		 // Stop form from submitting normally
+		event.preventDefault();
+		
+		// Get some values from elements on the page:
+		var $form = $( this ),
+		url = $form.attr( "action" );
+		
+		// Send the data using post
+		var posting = $.post( url , $form.serialize());
+		
+		//Grey out button to disallow same item being added to cart
+		$(this).addClass('disabled');
+		
 //			var current = $('#cart_count').text();
 //			current = 1 + parseInt(current);
 //			$('#cart_count').text(current);
 
-			var cart_update = $.post('nav_bar.php');
-			cart_update.done(function(data){
-				$('#navMenu').empty().append(data);
-			});
+		var cart_update = $.post('nav_bar.php');
+		cart_update.done(function(data){
+			$('#navMenu').empty().append(data);
 		});
 	});
+	
+	$('#filter_list li').click(function(){
+//		alert('list element clicked');
+		$(this).find('.filter_checkboxes').toggle("fast");
+	});
+});
 </script> 
