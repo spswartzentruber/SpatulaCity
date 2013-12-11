@@ -4,6 +4,11 @@
 	margin-top: 10px;
 }
 
+#spatula_thumbnail
+{
+	float:left;
+}
+
 #navMenu
 {
 	float:left;
@@ -12,5 +17,51 @@
 #content 
 {
 	float: left;
-	width:50%;
+	width: 75%;
+	padding-left: 20px;
+}
+
+#spatula_name{
+	float:left;
+}
+
+#add_to_cart{
+	float:right;
+}
+
+#spatula_results
+{
+	width:100%;
+}
+
+#spatula_results th
+{
+	border-style:solid;
+	text-align:left;
+}
+
+#spatula_results tr:first-of-type th
+{
+	border-style:none;
+}
+
+#filter_list li 
+{
+	list-style-type: none;
+	border-style: outset;
+}
+
+#spatula_list th 
+{
+	text-align: left;
+}
+
+.expanded li
+{
+	border-style: inset;
+}
+
+ul 
+{
+	-webkit-padding-start: 0px;
 }

@@ -43,7 +43,6 @@
                     <h3>Color</h3>
                     <div class="filter_checkboxes">
                         <?php
-                        require 'php_scripts/db_connect.php';
                         
                         $query = 
                         "SELECT sp_color as color
@@ -70,7 +69,7 @@
     </div>
 	<?php	
 	require 'php_scripts/db_connect.php';
-	
+/*	
 	function spatula_list($spatula_array, $page, $per_page)
 	{
 //		print_r($spatula_array);
@@ -97,7 +96,41 @@
 		return $result."</ul>";
 //		echo $result."</ul>";
 	}
-
+*/
+	function spatula_list($spatula_array, $page, $per_page)
+	{
+//		print_r($spatula_array);
+//		$start = $per_page*($page-1);
+		$start = 0;
+//		$stop = $per_page*$page-1;
+		$stop = count($spatula_array);
+		$result = "
+			<table id='spatula_results'>
+				<tr>
+					<th>Name</th>
+					<th>Price</th>
+					<th></th>
+				</tr>
+			";
+		for ($i = $start; $i < $stop; $i++)
+		{
+			$result .= 
+				"
+				<tr>
+					<th class='spatula_name_col'><a href='spatula.php?id_spatula=".$spatula_array[$i]['id_spatula']."'>".$spatula_array[$i]['sp_name']."</a></th>
+					<th class='spatula_price_col'>".$spatula_array[$i]['price_sale']."</th>
+					<th class='spatula_cart_col'>
+						<form action='php_scripts/form_handler.php' method='POST' class= 'cart_button'>
+							<input type='hidden' name='add_to_cart[id_spatula]' value='".$spatula_array[$i]['id_spatula']."'>
+							<input type='hidden' name='add_to_cart[sp_name]' value='".$spatula_array[$i]['sp_name']."'>
+							<input type='submit' value='Add to Cart'>
+						</form>
+					</th>
+				</tr>
+				";
+		}
+		return $result."</table>";
+	}
 	$per_page = 10;
 	$page_start = ($_GET['page']-1)*$per_page;
 	
@@ -152,7 +185,7 @@
 		}
 		
 	$page = $_GET['page'];
-	echo "<div>".spatula_list($spatula,$page,10)."</div><br />";
+	echo "<div id='spatula_list'>".spatula_list($spatula,$page,10)."</div><br />";
 	
 	$query_arr = $_GET;
 	$query_arr["page"] = $query_arr["page"] + 1;
@@ -201,6 +234,8 @@ $(document).ready(function(){
 	$('#filter_list h3').click(function(){
 //		alert('list element clicked');
 		$(this).siblings('.filter_checkboxes').toggle("fast");
+		
+		$('#filter_list li').toggleClass("expanded");
 	});
 });
 </script> 

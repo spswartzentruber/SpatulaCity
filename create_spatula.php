@@ -43,7 +43,11 @@ $(document).ready(function(){
 		url = $form.attr( "action" );
 		
 		var posting = $.post( url ,  $( "#new_spatula_form" ).serialize() );
-
+		
+		posting.done(function(data){
+			var message = $( data ).find( ".finish_alert" );
+			alert(data);
+		});
 	});
 });
 </script>

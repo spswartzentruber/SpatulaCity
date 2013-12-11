@@ -1,4 +1,7 @@
-<?php include 'page_elements/header.php'; ?>
+<?php 
+	session_start(); 
+	include 'page_elements/header.php'; 
+?>
 
 <body>
 <div id="banner">
@@ -14,7 +17,7 @@
 	
 	$query = 
 		"
-		SELECT sp_name as 'name', sp_manufacturer as manufacturer, sp_color as color, image_url, info as description
+		SELECT sp_name as 'name', sp_manufacturer as manufacturer, sp_color as color, image_url, info as description, id_spatula
 		FROM spatula
 		WHERE id_spatula=$id_spatula;
 		";
@@ -37,26 +40,55 @@
 ?>
 
 <div id='content'>
-<div class="nailthumb-container" id='spatula_image'><img src="/spatulacity/img/<?php echo $spatula_array['image_url'] ?>.jpg" / class="spatula_thumbnail"></div>
-<h1 id='spatula_name'><?php echo $spatula_array['name'] ?></h1>
-<p id='spatula_description'><?php echo $spatula_array['description'] ?></p><br/>
-<div id='occasions_list'>
-	<h2>This spatula is great for...</h2>
-    <ul>
-    	<?php
-		foreach($occasions as $foo){
-			echo "<li>$foo</li>";
-		}
-		?>
-    </ul>
-</div>
+	<div id='spatula_line_one'>
+        <div class="nailthumb-container" id='spatula_image'><img src="img/<?php echo $spatula_array['image_url'] ?>.jpg" / id="spatula_thumbnail"></div>
+        <h1 id='spatula_name'><?php echo $spatula_array['name'] ?></h1>
+        <div id='add_to_cart'>
+            <form action='php_scripts/form_handler.php' method='POST' class= 'cart_button'>
+                <input type='hidden' name='add_to_cart[id_spatula]' value='<?php echo $spatula_array['id_spatula']; ?>'>
+                <input type='hidden' name='add_to_cart[sp_name]' value='<?php echo $spatula_array['name']; ?>'>
+                <input type='submit' value='Add to Cart'>
+            </form>
+        </div>
+    </div>
+    <p id='spatula_description'><?php echo $spatula_array['description'] ?></p><br/>
+    <div id='occasions_list'>
+        <h2>This spatula is great for...</h2>
+        <ul>
+            <?php
+            foreach($occasions as $foo){
+                echo "<li>$foo</li>";
+            }
+            ?>
+        </ul>
+    </div>
 </div>
 </body>
 
 <?php include 'page_elements/footer.php'; ?> 
 
  <script type="text/javascript">
-	jQuery(document).ready(function() {
-		jQuery('.nailthumb-container').nailthumb({width:300,height:300,method:'resize',fitDirection:'top left'});
+jQuery(document).ready(function() {
+	jQuery('.nailthumb-container').nailthumb({width:300,height:300,method:'resize',fitDirection:'top left'});
+	
+		$('.cart_button').submit(function( event ) {
+		 // Stop form from submitting normally
+		event.preventDefault();
+		
+		// Get some values from elements on the page:
+		var $form = $( this ),
+		url = $form.attr( "action" );
+		
+		// Send the data using post
+		var posting = $.post( url , $form.serialize());
+		
+		//Grey out button to disallow same item being added to cart
+		$(this).addClass('disabled');
+
+		var cart_update = $.post('nav_bar.php');
+		cart_update.done(function(data){
+			$('#navMenu').empty().append(data);
+		});
 	});
+});
 </script>
