@@ -12,12 +12,14 @@
 	
 <div id='content'>	
 <?php
+	//Fetch data for each spatula in the cart
 	foreach($_SESSION['cart'] as $val){
 		$query = "SELECT sp_name, price_sale, id_spatula FROM full_spatula WHERE id_spatula=".$val['id_spatula'].";";
 		$result = $link->query($query);
 		$cart_item[] = $result->fetch_assoc();
 	}
 	
+	//Build our shopping cart display.
 	echo "<ul id='shopping_cart'>";
 	$total = 0;
 	foreach($cart_item as $val){
@@ -50,7 +52,7 @@
 				var price = $(this).find('.price_sale').html(),
 				quant = $(this).find('.quantity').val();
 //				alert("price: " + price + ", quant: " + quant);
-				total += price * quant;
+				total += Math.round(price * quant * 100)/100;
 			});
 //			alert("new total: " + total);
 			$('#total').html(total);
