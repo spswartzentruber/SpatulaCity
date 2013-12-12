@@ -34,19 +34,19 @@
         foreach($cart_item as $val){
             echo 
                 "<tr class='item'>
-                    <th>".$val['sp_name']."</th>
-                    <th><input type='number' id='quantity_".$val['id_spatula']."' value=1 min=1 class='quantity'></th>
-                    <th><div class='price_sale'>".$val['price_sale']."</div></th>
-                    <th><button>Remove</button></th>
+                    <td>".$val['sp_name']."</td>
+                    <td><input type='number' id='quantity_".$val['id_spatula']."' value=1 min=1 class='quantity'></td>
+                    <td><div class='price_sale'>".$val['price_sale']."</div></td>
+                    <td><button>Remove</button></td>
                 </tr>";
             $total += $val['price_sale'];
         }
         echo "
                 <tr>
-                    <th></th>
-                    <th>Total:</th>
-                    <th><span id='total'>".$total."</span></th>
-                    <th></th>
+                    <td></td>
+                    <td>Total:</td>
+                    <td><span id='total'>".$total."</span></td>
+                    <td></td>
                 </tr>
             </table>
             <br />
