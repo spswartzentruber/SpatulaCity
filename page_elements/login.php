@@ -1,7 +1,5 @@
 <?php
-
-session_start();
-include '../php_scripts/db_connect.php';
+include_once '../db_connect.php';
 
 //Login
 if( !empty( $_POST['login'] ) )
