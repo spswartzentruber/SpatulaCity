@@ -1,13 +1,13 @@
 <!--Note: Searching does not restart to page 1.-->
 
 <?php 
-	include 'page_elements/header.php'; 
-	include 'php_scripts/db_connect.php';
+	include_once 'page_elements/header.php'; 
+	include_once 'php_scripts/db_connect.php';
 ?>
 
 <body>
 <div id="banner">
-	<?php include 'page_elements/login.php'; ?>
+	<?php include 'login.php'; ?>
 </div>
 <div id="below_banner">
 <?php include 'page_elements/nav_bar.php'; ?>
@@ -20,7 +20,7 @@
                     <h3>Occasion</h3>
                     <div class="filter_checkboxes">
                         <?php
-                        require 'php_scripts/db_connect.php';
+                        require $root.'php_scripts/db_connect.php';
                         
                         $query = 
                         "SELECT * 

@@ -1,11 +1,10 @@
 <?php 
-session_start();
 include 'page_elements/header.php'; 
 ?>
 
 <body>
 <div id="banner">
-	<?php include 'page_elements/login.php'; ?>
+	<?php include 'login.php'; ?>
 </div>
 <div id="below_banner">
 <?php
