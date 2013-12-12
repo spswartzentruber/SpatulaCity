@@ -66,40 +66,10 @@
         </form>
     </div>
 	<?php
-/*	
 	function spatula_list($spatula_array, $page, $per_page)
 	{
 //		print_r($spatula_array);
-//		$start = $per_page*($page-1);
 		$start = 0;
-//		$stop = $per_page*$page-1;
-		$stop = count($spatula_array);
-		$result = "<ul>";
-		for ($i = $start; $i < $stop; $i++)
-		{
-			$result .= 
-				"
-				<li>
-					<a href='spatula.php?id_spatula=".$spatula_array[$i]['id_spatula']."'>".$spatula_array[$i]['sp_name']."</a>
-					<div>".$spatula_array[$i]['price_sale']."</div>
-					<form action='form_handler.php' method='POST' class= 'cart_button'>
-						<input type='hidden' name='add_to_cart[id_spatula]' value='".$spatula_array[$i]['id_spatula']."'>
-						<input type='hidden' name='add_to_cart[sp_name]' value='".$spatula_array[$i]['sp_name']."'>
-						<input type='submit' value='Add to Cart'>
-					</form>
-				</li>
-				";
-		}
-		return $result."</ul>";
-//		echo $result."</ul>";
-	}
-*/
-	function spatula_list($spatula_array, $page, $per_page)
-	{
-//		print_r($spatula_array);
-//		$start = $per_page*($page-1);
-		$start = 0;
-//		$stop = $per_page*$page-1;
 		$stop = count($spatula_array);
 		$result = "
 			<table id='spatula_results'>
@@ -114,15 +84,15 @@
 			$result .= 
 				"
 				<tr>
-					<th class='spatula_name_col'><a href='spatula.php?id_spatula=".$spatula_array[$i]['id_spatula']."'>".$spatula_array[$i]['sp_name']."</a></th>
-					<th class='spatula_price_col'>".$spatula_array[$i]['price_sale']."</th>
-					<th class='spatula_cart_col'>
+					<td class='spatula_name_col'><a href='spatula.php?id_spatula=".$spatula_array[$i]['id_spatula']."'>".$spatula_array[$i]['sp_name']."</a></td>
+					<td class='spatula_price_col'>".$spatula_array[$i]['price_sale']."</td>
+					<td class='spatula_cart_col'>
 						<form action='form_handler.php' method='POST' class= 'cart_button'>
 							<input type='hidden' name='add_to_cart[id_spatula]' value='".$spatula_array[$i]['id_spatula']."'>
 							<input type='hidden' name='add_to_cart[sp_name]' value='".$spatula_array[$i]['sp_name']."'>
 							<input type='submit' value='Add to Cart'>
 						</form>
-					</th>
+					</td>
 				</tr>
 				";
 		}
@@ -204,7 +174,7 @@ $(document).ready(function(){
 	$('.filter_checkboxes').hide();
 
 	$('.cart_button').submit(function( event ) {
-//			alert('Add to Cart clicked');
+		console.log('Add to Cart clicked');
 		 // Stop form from submitting normally
 		event.preventDefault();
 		
@@ -217,10 +187,6 @@ $(document).ready(function(){
 		
 		//Grey out button to disallow same item being added to cart
 		$(this).addClass('disabled');
-		
-//			var current = $('#cart_count').text();
-//			current = 1 + parseInt(current);
-//			$('#cart_count').text(current);
 
 		var cart_update = $.post('page_elements/nav_bar.php');
 		cart_update.done(function(data){
@@ -229,7 +195,7 @@ $(document).ready(function(){
 	});
 	
 	$('#filter_list h3').click(function(){
-//		alert('list element clicked');
+		console.log('list element clicked');
 		$(this).siblings('.filter_checkboxes').toggle("fast");
 		
 		$('#filter_list li').toggleClass("expanded");
