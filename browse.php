@@ -2,7 +2,7 @@
 
 <?php 
 	include_once 'page_elements/header.php'; 
-	include_once 'php_scripts/db_connect.php';
+	include_once 'db_connect.php';
 ?>
 
 <body>
@@ -19,9 +19,7 @@
                 <li>
                     <h3>Occasion</h3>
                     <div class="filter_checkboxes">
-                        <?php
-                        require $root.'php_scripts/db_connect.php';
-                        
+                        <?php                        
                         $query = 
                         "SELECT * 
                         FROM occassion 
@@ -30,7 +28,7 @@
                         $results = $link->query($query);
                         
                         while($row = $results->fetch_assoc()){
-                            if(in_array($row['id_occassion'],$_GET['filter']['occasion'])){
+                            if(in_array(!empty($_GET['filter']['occasion']) and $row['id_occassion'],$_GET['filter']['occasion'])){
                                 echo "<input type='checkbox' name='filter[occasion][]' value='".$row['id_occassion']."' checked>".$row['name'];
                             } else {
                                 echo "<input type='checkbox' name='filter[occasion][]' value='".$row['id_occassion']."' >".$row['name'];
@@ -67,8 +65,7 @@
             <input type="submit" value="Filter">
         </form>
     </div>
-	<?php	
-	require 'php_scripts/db_connect.php';
+	<?php
 /*	
 	function spatula_list($spatula_array, $page, $per_page)
 	{
@@ -85,7 +82,7 @@
 				<li>
 					<a href='spatula.php?id_spatula=".$spatula_array[$i]['id_spatula']."'>".$spatula_array[$i]['sp_name']."</a>
 					<div>".$spatula_array[$i]['price_sale']."</div>
-					<form action='php_scripts/form_handler.php' method='POST' class= 'cart_button'>
+					<form action='form_handler.php' method='POST' class= 'cart_button'>
 						<input type='hidden' name='add_to_cart[id_spatula]' value='".$spatula_array[$i]['id_spatula']."'>
 						<input type='hidden' name='add_to_cart[sp_name]' value='".$spatula_array[$i]['sp_name']."'>
 						<input type='submit' value='Add to Cart'>
@@ -120,7 +117,7 @@
 					<th class='spatula_name_col'><a href='spatula.php?id_spatula=".$spatula_array[$i]['id_spatula']."'>".$spatula_array[$i]['sp_name']."</a></th>
 					<th class='spatula_price_col'>".$spatula_array[$i]['price_sale']."</th>
 					<th class='spatula_cart_col'>
-						<form action='php_scripts/form_handler.php' method='POST' class= 'cart_button'>
+						<form action='form_handler.php' method='POST' class= 'cart_button'>
 							<input type='hidden' name='add_to_cart[id_spatula]' value='".$spatula_array[$i]['id_spatula']."'>
 							<input type='hidden' name='add_to_cart[sp_name]' value='".$spatula_array[$i]['sp_name']."'>
 							<input type='submit' value='Add to Cart'>
@@ -225,7 +222,7 @@ $(document).ready(function(){
 //			current = 1 + parseInt(current);
 //			$('#cart_count').text(current);
 
-		var cart_update = $.post('nav_bar.php');
+		var cart_update = $.post('page_elements/nav_bar.php');
 		cart_update.done(function(data){
 			$('#navMenu').empty().append(data);
 		});

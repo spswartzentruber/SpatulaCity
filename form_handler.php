@@ -35,7 +35,9 @@
 	}
 	
 	//Add to cart
-	$_SESSION['cart'][] =  $_POST['add_to_cart'];
+	if(!empty($_POST['add_to_cart'])){
+		$_SESSION['cart'][] =  $_POST['add_to_cart'];
+	}
 	
 	//Generate data for dropdown of delivery services
 	if(!empty($_POST['delivery_dropdown'])){

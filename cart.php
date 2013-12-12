@@ -1,6 +1,6 @@
 <?php 
 	include 'page_elements/header.php'; 
-	include_once 'php_scripts/db_connect.php';
+	include_once 'db_connect.php';
 ?>
 
 <body>
@@ -12,6 +12,7 @@
 	
     <div id='content'>	
     <?php
+		include_once 'db_connect.php';
         //Fetch data for each spatula in the cart
         foreach($_SESSION['cart'] as $val){
             $query = "SELECT sp_name, price_sale, id_spatula FROM full_spatula WHERE id_spatula=".$val['id_spatula'].";";
@@ -81,11 +82,12 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		//Start using jQuery to populate dropdown menus.
-		var delivery_dropdown_data = $.post( 'php_scripts/form_handler.php' , { delivery_dropdown : 1 } )
-		, payment_dropdown_data = $.post( 'php_scripts/form_handler.php' , { payment_dropdown : 1 } )
-		, state_dropdown_data = $.post( 'php_scripts/form_handler.php' , { state_dropdown : 1 } );
+		var delivery_dropdown_data = $.post( 'form_handler.php' , { delivery_dropdown : 1 } )
+		, payment_dropdown_data = $.post( 'form_handler.php' , { payment_dropdown : 1 } )
+		, state_dropdown_data = $.post( 'form_handler.php' , { state_dropdown : 1 } );
 		
 		delivery_dropdown_data.done( function( data ){
+//			var foo = $(data).find('.content').text();
 			console.log('got us some delivery options');
 			console.log(data);
 			$.each( JSON.parse(data), function( i, val ){
@@ -95,6 +97,7 @@
 		});
 		
 		payment_dropdown_data.done( function( data ){
+//			var foo = $(data).find('.content').text();
 			console.log('got us some payment options');
 			console.log(data);
 			$.each( JSON.parse(data), function( i, val ){
@@ -104,6 +107,7 @@
 		});
 		
 		state_dropdown_data.done( function( data ){
+//			var foo = $(data).find('.content').text();
 			console.log('got us some states');
 			console.log(data);
 			$.each( JSON.parse(data), function( i, val ){

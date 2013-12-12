@@ -11,7 +11,7 @@ include 'page_elements/header.php';
 include 'page_elements/nav_bar.php';
 ?>
 <div id='content'>
-<form action="php_scripts/form_handler.php" method="post" id="new_spatula_form">
+<form action="form_handler.php" method="post" id="new_spatula_form">
 	<fieldset>
         <legend>New Spatula:</legend>
         Name: <input type="text" required name="spatula[name]"><br>

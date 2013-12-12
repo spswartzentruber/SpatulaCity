@@ -1,16 +1,15 @@
 <?php 
-	session_start(); 
 	include 'page_elements/header.php'; 
 ?>
 
 <body>
 <div id="banner">
-	<?php include 'page_elements/login.php'; ?>
+	<?php include 'login.php'; ?>
 </div>
 <div id="below_banner">
 <?php
 	session_start();
-	include 'php_scripts/db_connect.php';
+	include 'db_connect.php';
 	include 'page_elements/nav_bar.php';
 	
 	$id_spatula = $_GET['id_spatula'];
@@ -44,7 +43,7 @@
         <div class="nailthumb-container" id='spatula_image'><img src="img/<?php echo $spatula_array['image_url'] ?>.jpg" / id="spatula_thumbnail"></div>
         <h1 id='spatula_name'><?php echo $spatula_array['name'] ?></h1>
         <div id='add_to_cart'>
-            <form action='php_scripts/form_handler.php' method='POST' class= 'cart_button'>
+            <form action='form_handler.php' method='POST' class= 'cart_button'>
                 <input type='hidden' name='add_to_cart[id_spatula]' value='<?php echo $spatula_array['id_spatula']; ?>'>
                 <input type='hidden' name='add_to_cart[sp_name]' value='<?php echo $spatula_array['name']; ?>'>
                 <input type='submit' value='Add to Cart'>
@@ -85,7 +84,7 @@ jQuery(document).ready(function() {
 		//Grey out button to disallow same item being added to cart
 		$(this).addClass('disabled');
 
-		var cart_update = $.post('nav_bar.php');
+		var cart_update = $.post('page_elements/nav_bar.php');
 		cart_update.done(function(data){
 			$('#navMenu').empty().append(data);
 		});

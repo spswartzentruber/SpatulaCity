@@ -27,7 +27,7 @@ if( !empty( $_POST['login'] ) )
 }
 
 //Logout
-if( $_POST['logout'] == 1 )
+if( !empty( $_POST['logout'] ) )
 {
 //	echo $_SESSION['username']." logged out.";
 	unset($_SESSION['username']);
