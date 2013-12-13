@@ -8,7 +8,6 @@
 	}
 	
 	session_start(); 
-	
 	include 'db_connect.php';
 	date_default_timezone_set('America/Indianapolis');
 	
@@ -97,7 +96,7 @@
 		$results = $link->query($query);
 		while($row = $results->fetch_assoc()){
 			$foo[] = array(
-				'id_payment_method' => $row['id_state']
+				'id_state' => $row['id_state']
 				, 'name' => $row['name']
 			);
 		}
