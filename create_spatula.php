@@ -63,14 +63,14 @@ $(document).ready(function(){
 	var occasion_list = $.post( 'form_handler.php' , { occasion_list : 1 } );
 	
 	//Setup Occasions checkboxes
-	delivery_dropdown_data.done( function( data ){
+	occasion_list.done( function( data ){
 //		var foo = $(data).find('.content').text();
 		console.log('here are our occasions');
 		console.log(data);
 		$.each( JSON.parse(data), function( i, val ){
 //				console.log('adding option '.val);
-			$('#occasions_boxes').append($('<input />', {type: 'checkbox', id: 'occasion'+val.id_occasion, value: val.id_occasion}));
-			$('#occasions_boxes').append($('<label />', {for: 'occasion'+val.id_occasion, text: val.name}));
+			$('#occasions_boxes').append($('<input />', {type: 'checkbox', id: 'occasion'+val.id_occassion, value: val.id_occassion, name: "spatula[occasion][]"}));
+			$('#occasions_boxes').append($('<label />', {for: 'occasion'+val.id_occassion, text: val.name}));
 		});
 	});
 	
@@ -85,8 +85,7 @@ $(document).ready(function(){
 		var posting = $.post( url ,  $( "#new_spatula_form" ).serialize() );
 		
 		posting.done(function(data){
-			var message = $( data ).find( ".finish_alert" );
-			alert(data);
+			console.log(data);
 		});
 	});
 });

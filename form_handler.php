@@ -39,9 +39,11 @@
 		$link->query($query);
 		
 		//INSERT into occassion (yes, I misspelled it...) relational table
+		print_r($form['occasion']);
 		foreach($form['occasion'] as $foo){
-			$query = "INSERT INTO `spatula_city`.`spatula_has_occassion` (`fk_id_spatula`, `fk_id_occassion`) VALUES ('$id_spatula', '$foo');";
+			$query = "INSERT INTO `spatula_city`.`spatula_has_occassion` (`fk_ck_id_spatula`, `fk_ck_id_occassion`) VALUES ('$id_spatula', '$foo');";
 			$link->query($query);
+			echo $query;
 		}
 		
 		echo "
@@ -104,10 +106,10 @@
 	}
 	
 	//Generate occasion checkboxes
-	if(!empty($_POST['occasion_checkboxes'])){
+	if(!empty($_POST['occasion_list'])){
 		$query = 
 			"SELECT * 
-			FROM occassion 
+			FROM `occassion` 
 			ORDER BY 'name' DESC;";
 		$occasions = query_to_array($query,$link);
 		echo json_encode($occasions);
