@@ -43,8 +43,13 @@
 								<td>Description:</td>
 								<td><input type="textarea" required name="spatula[description]"></td>
 							</tr>
+							<tr>
+								<td>Occasions:</td>
+								<td id = 'occasions_boxes'></td>
+							</tr>
 						</table>
 					<input type='submit' value='submit'>
+					<input type='submit' value='reset'>
 				</fieldset>
 			</form>
 		</div>
@@ -55,6 +60,20 @@
 
 <script>
 $(document).ready(function(){
+	var occasion_list = $.post( 'form_handler.php' , { occasion_list : 1 } );
+	
+	//Setup Occasions checkboxes
+	delivery_dropdown_data.done( function( data ){
+//		var foo = $(data).find('.content').text();
+		console.log('here are our occasions');
+		console.log(data);
+		$.each( JSON.parse(data), function( i, val ){
+//				console.log('adding option '.val);
+			$('#occasions_boxes').append($('<input />', {type: 'checkbox', id: 'occasion'+val.id_occasion, value: val.id_occasion}));
+			$('#occasions_boxes').append($('<label />', {for: 'occasion'+val.id_occasion, text: val.name}));
+		});
+	});
+	
 	$('#new_spatula_form').submit(function( event ) {
 		 // Stop form from submitting normally
 		event.preventDefault();
