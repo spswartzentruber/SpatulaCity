@@ -28,14 +28,23 @@
 		
 		$time = date('Y-m-d H:i:s',time());
 		
+		//INSERT into spatula table
 		$query = "INSERT INTO `spatula_city`.`spatula` (`sp_name`, `sp_manufacturer`, `sp_color`, `create_time`, `image_url`, `info`) VALUES ('$name', '$manufacturer', '$color', '$time', '$image', '$description');";
 		$result = $link->query($query);
 		
+		//Store auto_incrimented Spatula ID as I need it for my inserts into my relational tables
 		$id_spatula = $link->insert_id;
 		
+		//INSERT into inventory table
 		$query = "INSERT INTO `spatula_city`.`inventory` (`fk_id_spatula`, `price_retail`, `price_sale`, `inv_count`, `last_update`) VALUES ('$id_spatula', '$retail_price', '$sale_price', '$inventory', '$time');";
-//		echo $query;
-		$result = $link->query($query);
+		$link->query($query);
+		
+		//INSERT into occassion (yes, I misspelled it...) relational table
+		foreach($form['occasion'] as $foo){
+			$query = "INSERT INTO `spatula_city`.`spatula_has_occassion` (`fk_id_spatula`, `fk_id_occassion`) VALUES ('$id_spatula', '$foo');";
+			$link->query($query);
+		}
+		
 		echo "
 			<div class='finish_alert'>
 				$name added to database
