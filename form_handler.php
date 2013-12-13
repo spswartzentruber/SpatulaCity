@@ -1,10 +1,18 @@
 <?php
+	function query_to_array($query_str, $db){
+		$query_result = $db->query($query_str);
+		while($row = $query_result->fetch_assoc()){
+			$result[] = $row;
+		}
+		return $result;
+	}
+	
 	session_start(); 
 	
 	include 'db_connect.php';
 	date_default_timezone_set('America/Indianapolis');
 	
-	//Create spatula.  Checking if empty is a reminent from earlier and should be able to be removed.
+	//Create spatula.
 	if(!empty($_POST['spatula']))
 	{
 		$form = $_POST['spatula'];
@@ -85,5 +93,15 @@
 			);
 		}
 		echo json_encode($foo);
+	}
+	
+	//Generate occasion checkboxes
+	if(!empty($_POST['occasion_checkboxes'])){
+		$query = 
+			"SELECT * 
+			FROM occassion 
+			ORDER BY 'name' DESC;";
+		$occasions = query_to_array($query,$link);
+		echo json_encode($occasions);
 	}
 ?>
