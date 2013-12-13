@@ -110,10 +110,7 @@
 	foreach($_GET['filter'] as $category => $foo){
 		if(!empty($foo))
 		{
-//			print_r($foo);
-//			$category = key($foo);
-//			echo $category;
-			//Since the filter doesn't neccessarily match up with the key we'll be searching on, here's an array that will let us put things right.
+			//Since the filter doesn't necessarily match up with the key we'll be searching on, here's an array that will let us put things right.
 			$filter_array = array
 				(
 				'occasion' => 'id_occassion'
