@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once 'db_connect.php';
 
 //Login
@@ -38,7 +39,7 @@ if(empty($_SESSION['username']))
 {
 	echo "
 	<div id='login_div'>
-		<form action='page_elements/login.php' method='post' id='login'>
+		<form action='login.php' method='post' id='login'>
 			<fieldset>
 				<legend>Login:</legend>
 				username: <input type='text' required name='login[username]'> password: <input type='password' required name='login[password]'><input type='submit' value='login' class='loginout_button'>
@@ -51,7 +52,7 @@ if(empty($_SESSION['username']))
 	"
 	<div id='login_div'>
 		<p>Welcome, ".$_SESSION['username']."!</p>
-		<form action='page_elements/login.php' method='post' id='logout'>
+		<form action='login.php' method='post' id='logout'>
 			<input type='submit' value='logout' class='loginout_button'>
 		</form>
 	</div>

@@ -53,27 +53,31 @@
             ";
     ?>
     </div>
-    <select id="delivery_dropdown"></select><select id="payment_dropdown"></select>
+    <form action="form_handler.php" method="post" id="new_purchase">
+    <select id="delivery_dropdown" name="new_spatula_form[delivery]"></select><select id="payment_dropdown" name="new_spatula_form[payment]"></select>
     <fieldset id='shipping_address_fields'>
         <table>
           <tr>
             <td>Street:</td>
-            <td><input type="text" required name="address[street]"></td>
+            <td><input type="text" required name="new_spatula_form[address][street]"></td>
           </tr>
           <tr>
             <td>City:</td>
-            <td><input type="text" required name="address[city]"></td>
+            <td><input type="text" required name="new_spatula_form[address][city]"></td>
           </tr>
           <tr>
             <td>ZIP:</td>
-            <td><input type="text" required name="address[zip]"></td>
+            <td><input type="text" required name="new_spatula_form[address][zip]"></td>
           </tr>
           <tr>
             <td>State:</td>
-            <td><select id="state_dropdown"></select></td>
+            <td><select id="state_dropdown" name="new_spatula_form[address][state]"></select></td>
           </tr>
         </table>
     </fieldset>
+    <input type="submit" value="Purchase">
+    </form>
+    
 </div>
 </body>
 
@@ -128,6 +132,20 @@
 			});
 //			alert("new total: " + total);
 			$('#total').html(total);
+		});
+		
+		$('#new_purchase').click(function( event ) {
+			event.preventDefault();
+			
+			var $form = $( this ),
+			url = $form.attr( "action" );
+			
+			var posting = $.post( 'form_handler.php' ,  $form.serialize() );
+	
+			posting.done(function( data ) {
+				console.log('purchase finished');
+				console.log(data);
+			});
 		});
 	});
 </script> 

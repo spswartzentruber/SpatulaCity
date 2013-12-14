@@ -114,4 +114,61 @@
 		$occasions = query_to_array($query,$link);
 		echo json_encode($occasions);
 	}
+	
+	//Purchase a cart full of spatulas
+	if(!empty($_POST['new_spatula_form'])){
+//		echo "beginning purchase steps";
+		
+		$form = $_POST['new_spatula_form'];
+		
+		$street = $form['address']['street'];
+		$city = $form['address']['city'];
+		$zip = $form['address']['zip'];
+		$state = $form['address']['state'];
+		$delivery = $form['delivery'];
+		$payment = $form['payment'];
+		$cart = $_SESSION['cart'];
+		$time = date('Y-m-d H:i:s',time());
+		
+		if( empty( $_SESSION['username'] ) ){
+			$username = 'no_username';
+		} else {
+			$username = $_SESSION['username'];
+		}
+		
+		print_r(array($street, $city, $zip, $state, $delivery, $payment, print_r($cart), $time, $username));
+		
+		// 1. Create address
+		$query = "INSERT INTO `spatula_city`.`address` (`street`, `city`, `zip`, `fk_id_state`) VALUES ('$street', '$city', '$zip', '$state');";
+		$result = $link->query($query);
+		$id_address = $link->insert_id;
+//		echo $query;
+		
+		// 2. Create purchase entry
+		$query = "INSERT INTO `spatula_city`.`purchase` (`fk_id_address`, `fk_user_username`, `purchase_time`, `fk_id_delivery_service`, `fk_id_payment_method`) VALUES ('$id_address', '$username', '$time', '$delivery', '$payment');";
+		$result = $link->query($query);
+		$id_purchase = $link->insert_id;
+//		echo $query;
+		
+		// 3. Relate purchase entry to spatulas purchased
+//		print_r($cart);
+		foreach($cart as $foo){
+			$id_spatula = $foo['id_spatula'];
+//			echo $id_spatula;
+			$query = "SELECT * FROM spatula_city.inventory WHERE fk_id_spatula = $id_spatula;";
+			$inventory = query_to_array($query,$link);
+			$inventory = $inventory[0];
+			print_r($inventory);
+			if($inventory['price_retail'] <= $inventory['price_sale']){
+				$on_sale = 0;
+			} else {
+				$on_sale = 1;
+			}
+			$price = $inventory['price_sale'];
+			
+			$query = "INSERT INTO `spatula_city`.`spatula_has_purchase` (`fk_id_spatula`, `fk_id_purchase`, `price`, `on_sale`) VALUES ($id_spatula, $id_purchase, '$price', '$on_sale');";
+			$link->query($query);
+			echo $query;
+		}
+	}
 ?>
