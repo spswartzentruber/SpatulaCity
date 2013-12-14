@@ -6,7 +6,10 @@ $_SESSION['cart'] = array();
 
 <body>
 <div id="banner">
-	<?php include 'login.php'; ?>
+	<?php 
+	include 'page_elements/banner.php';
+	include 'login.php'; 
+	?>
 </div>
 <div id="below_banner">
 	<?php include 'page_elements/nav_bar.php'; ?>

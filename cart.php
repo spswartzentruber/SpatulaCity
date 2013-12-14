@@ -5,7 +5,10 @@
 
 <body>
 <div id="banner">
-	<?php include 'login.php'; ?>
+	<?php 
+	include 'page_elements/banner.php';
+	include 'login.php'; 
+	?>
 </div>
 <div id="below_banner">
 <?php include 'page_elements/nav_bar.php'; ?>
@@ -52,10 +55,9 @@
             <br />
             ";
     ?>
-    </div>
     <form action="form_handler.php" method="post" id="new_purchase">
-    <select id="delivery_dropdown" name="new_spatula_form[delivery]"></select><select id="payment_dropdown" name="new_spatula_form[payment]"></select>
     <fieldset id='shipping_address_fields'>
+    	<legend>Shipping Address</legend>
         <table>
           <tr>
             <td>Street:</td>
@@ -75,6 +77,8 @@
           </tr>
         </table>
     </fieldset>
+    <div>Shipping Method: <select id="delivery_dropdown" name="new_spatula_form[delivery]"></select></div>
+    <div>Payment Method: <select id="payment_dropdown" name="new_spatula_form[payment]"></select></div>
     <input type="submit" value="Purchase">
     </form>
     
@@ -145,6 +149,7 @@
 			posting.done(function( data ) {
 				console.log('purchase finished');
 				console.log(data);
+				alert('Spatula ordered!');
 			});
 		});
 	});
